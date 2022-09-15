@@ -1,0 +1,78 @@
+import random
+
+rock = '''
+    _______
+---'   ____)
+      (_____)
+      (_____)
+      (____)
+---.__(___)
+'''
+
+paper = '''
+    _______
+---'   ____)____
+          ______)
+          _______)
+         _______)
+---.__________)
+'''
+
+scissors = '''
+    _______
+---'   ____)____
+          ______)
+       __________)
+      (____)
+---.__(___)
+'''
+
+user_choice = int(input("What do you choose? Type 0 for Rock, 1 for Paper or 2 for Scissors "))
+valid_nums = [0,1,2]
+
+while user_choice not in valid_nums:
+    user_choice = int(input("What do you choose? Type 0 for Rock, 1 for Paper or 2 for Scissors "))
+
+AI_choice = random.randint(0,2)
+
+
+a = 0 > 2
+b = 2 > 1
+c = 1 > 0
+
+
+if user_choice == 0:
+    print(rock)
+elif user_choice == 1:
+    print(paper)
+else:
+    print(scissors)
+
+print("Computer chose:")
+if AI_choice == 0:
+    print(rock)
+elif AI_choice == 1:
+    print(paper)
+else:
+    print(scissors)
+
+if user_choice == 0 and AI_choice == 2:
+    a == True
+    print("You win")
+elif user_choice == 2 and AI_choice == 1:
+    b == True
+    print("You win")
+elif user_choice == 1 and AI_choice == 0:
+    c = True
+    print("You win")
+elif AI_choice == 0 and user_choice == 2:
+    a == True
+    print("You lose")
+elif AI_choice == 2 and user_choice == 1:
+    b == True
+    print("You lose")
+elif AI_choice == 1 and user_choice == 0:
+    c = True
+    print("You lose")
+else:
+    print("Tie")
