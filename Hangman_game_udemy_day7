@@ -1,0 +1,105 @@
+import random
+import hangman_words
+import hangman_art
+
+#TODO-1: - Update the word list to use the 'word_list' from hangman_words.py
+#Delete this line: word_list = ["ardvark", "baboon", "camel"]
+# end_of_game = False
+# word_list = ["ardvark", "baboon", "camel"]
+# chosen_word = random.choice(word_list)
+# word_length = len(chosen_word)
+
+
+# end_of_game = False
+
+
+#TODO-3: - Import the logo from hangman_art.py and print it at the start of the game.
+
+#Testing code
+# print(f'Pssst, the solution is {chosen_word}.')
+
+end_of_game = False
+word_list = hangman_words.word_list
+Word_List = []
+
+for x in range (0,3):
+    Random_Word = random.choice(word_list)
+    Word_List.append(Random_Word)
+
+print(Word_List)
+
+chosen_word = random.choice(Word_List)
+word_length = len(chosen_word)
+print(f'Pssst, the solution is {chosen_word}.') # For what the chosen word is
+New_word_list = []
+print(hangman_art.logo)
+
+
+
+
+#TODO-1: - Create a variable called 'lives' to keep track of the number of lives left.
+#Set 'lives' to equal 6.
+
+# lives = 6
+
+#Testing code
+
+
+
+
+# My Solution
+
+display = []
+chosen_word_list = []
+
+word_length = len(chosen_word)
+
+for _ in range(word_length):
+    display.append('_')
+
+for copy_letter in chosen_word: # Seperate copy to make chosen word into list
+    chosen_word_list.append(copy_letter)
+
+lives = 6
+
+while display != chosen_word_list:
+
+    guess = input("Guess a letter: ").lower()
+    first_wrong = False
+    if guess in display:
+        print(f"You've already guessed {guess} ")
+    for position in range(word_length):
+        letter = chosen_word[position]
+        if letter == guess:
+            display[position] = letter
+    display_joined = ''.join(display)
+    print(display_joined)
+    if guess not in chosen_word_list:
+        lives -= 1
+    if lives == 5:
+        print(hangman_art.stages[5])
+    if lives == 5 and guess not in display:
+        print(f"You guessed {guess}, that's not in the word list. You lose a life")
+    if lives == 4:
+        print(hangman_art.stages[4])
+    if lives == 4 and guess not in display:
+        print(f"You guessed {guess}, that's not in the word list. You lose a life")
+    if lives == 3:
+        print(hangman_art.stages[3])
+    if lives == 3 and guess not in display:
+        print(f"You guessed {guess}, that's not in the word list. You lose a life")
+    if lives == 2:
+        print(hangman_art.stages[2])
+    if lives == 2 and guess not in display:
+        print(f"You guessed {guess}, that's not in the word list. You lose a life")
+    if lives == 1:
+        print(hangman_art.stages[1])
+    if lives == 1 and guess not in display:
+        print(f"You guessed {guess}, that's not in the word list. You lose a life")
+    if lives == 0:
+        print("You Lose")
+        print(hangman_art.stages[0])
+        print(display_joined)
+        break
+if display == chosen_word_list:
+    print("You Win")
