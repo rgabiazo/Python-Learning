@@ -1,0 +1,28 @@
+def prime_checker(number):
+
+    counter = 2 # Solution 1
+    while counter != number and number != 2:
+        prime_check = number % counter
+        if prime_check == 0:
+            print("It's not a prime number.")
+            break
+        counter += 1
+        if counter == number:
+            print("It's a prime number.")
+    if number == 2:
+        print("It's a prime number.")
+
+
+
+    # Num_check = True # Solution 2
+    # for num in range (2, number):
+    #     if number % num == 0:
+    #         Num_check = False
+    #
+    # if Num_check is True:
+    #     print("It's a prime number.")
+    # else:
+    #     print("It's not a prime number.")
+
+n = int(input("Check this number: "))
+prime_checker(number=n)
