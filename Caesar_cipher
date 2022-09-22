@@ -1,0 +1,113 @@
+import caesar_art
+
+print(caesar_art.logo)
+
+alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+direction = input("Type 'encode' to encrypt, type 'decode' to decrypt:\n")
+text = input("Type your message:\n").lower()
+shift = int(input("Type the shift number:\n"))
+
+
+
+
+def caesar(plain_text,shift_amount,direction_choice): # My Solution
+
+    while direction_choice == 'encode' or direction_choice == 'decode':
+
+        user_text_letters = []
+        encode_text = []
+        decode_text = []
+        encode_list = []
+        decode_list = []
+        direction_choice = direction_choice
+        plain_text = plain_text
+        shift_amount = shift_amount
+
+        for char in plain_text:
+            user_text_letters.append(char)
+
+        while shift_amount > len(alphabet):
+            if shift_amount > len(alphabet):
+                new_shift = shift_amount - len(alphabet)
+                shift_amount = new_shift
+
+        if direction_choice == 'encode':
+            for i in range(len(user_text_letters)):
+                for j in range(len(alphabet)):
+                    if user_text_letters[i] == alphabet[j]:
+                        new_index = j + shift_amount
+                        if new_index >= len(alphabet):
+                            new_index = new_index - len(alphabet)
+                        encode_text.append(alphabet[new_index])
+
+            for symbol in range(len(user_text_letters)):
+                if user_text_letters[symbol] not in encode_text and user_text_letters[symbol] not in alphabet and user_text_letters[symbol] != ' ':
+                    encode_text.insert(symbol,user_text_letters[symbol])
+                elif user_text_letters[symbol] == ' ':
+                    encode_text.insert(symbol, ' ')
+                elif user_text_letters[symbol] in encode_text and user_text_letters[symbol] not in alphabet and user_text_letters[symbol] != ' ':
+                    encode_text.insert(symbol,user_text_letters[symbol])
+
+            for char in encode_text:
+                encode_list.append(char)
+
+            encode_list = ''.join(encode_list)
+            print(f"The encoded text is {encode_list}")
+            yes_no = input("Type 'yes' if you want to go again. Otherwise type 'no'. ")
+            if yes_no == 'yes':
+                direction_choice = input("Type 'encode' to encrypt, type 'decode' to decrypt:\n")
+                plain_text = input("Type your message:\n").lower()
+                shift_amount = int(input("Type the shift number:\n"))
+            elif yes_no == 'no':
+                print("Goodbye.")
+                break
+
+        if direction_choice == 'decode':
+
+            user_text_letters = []
+            encode_text = []
+            decode_text = []
+            encode_list = []
+            decode_list = []
+            direction_choice = direction_choice
+            plain_text = plain_text
+            shift_amount = shift_amount
+
+            for char in plain_text:
+                user_text_letters.append(char)
+
+            while shift_amount > len(alphabet):
+                if shift_amount > len(alphabet):
+                    new_shift = shift_amount - len(alphabet)
+                    shift_amount = new_shift
+
+            for x in range(len(user_text_letters)):
+                for y in range(len(alphabet)):
+                    if user_text_letters[x] == alphabet[y]:
+                        new_index = y - shift_amount
+                        decode_text.append(alphabet[new_index])
+
+            for symbol2 in range(len(user_text_letters)):
+                if user_text_letters[symbol2] not in decode_text and user_text_letters[symbol2] not in alphabet and user_text_letters[symbol2] != ' ':
+                    decode_text.insert(symbol2,user_text_letters[symbol2])
+                elif user_text_letters[symbol2] == ' ':
+                    decode_text.insert(symbol2, ' ')
+                elif user_text_letters[symbol2] in decode_text and user_text_letters[symbol2] not in alphabet and user_text_letters[symbol2] != ' ':
+                    decode_text.insert(symbol2,user_text_letters[symbol2])
+
+            for char2 in decode_text:
+                decode_list.append(char2)
+
+        decode_list = ''.join(decode_list)
+        print(f"The decoded text is {decode_list}")
+        yes_no = input("Type 'yes' if you want to go again. Otherwise type 'no'. ")
+        if yes_no == 'yes':
+            direction_choice = input("Type 'encode' to encrypt, type 'decode' to decrypt:\n")
+            plain_text = input("Type your message:\n").lower()
+            shift_amount = int(input("Type the shift number:\n"))
+        elif yes_no == 'no':
+            print("Goodbye")
+            break
+
+
+caesar(plain_text = text, shift_amount = shift, direction_choice = direction)
