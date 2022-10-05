@@ -1,0 +1,173 @@
+import random
+from blackjackart import logo
+
+print(logo)
+
+cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
+
+
+def user_score_calc(user_deck):
+    """ Calculates user score"""
+    user_score = sum(user_deck)
+
+    return user_score
+
+def dealer_score_calc(dealer_deck):
+    """ Calculates computer score"""
+    dealer_score = sum(dealer_deck)
+
+    return dealer_score
+
+
+
+def draw_dealer(dealer_deck):
+    """ Draws random cards for computer"""
+
+    dealer_deck += random.sample(cards,1)
+
+    while sum(dealer_deck) < 17:
+        dealer_deck += random.sample(cards,1)
+        return dealer_deck
+
+    return dealer_deck
+
+def draw_user(user_deck):
+    """ Draws random cards for user"""
+
+    user_deck += random.sample(cards,1)
+
+    if sum(user_deck) > 21:
+        for ace in range(len(user_deck)):
+            if user_deck[ace] == 11:
+                user_deck [ace] = user_deck[ace] = 1
+                return user_deck
+
+    return user_deck
+
+
+
+def replay():
+    """ Function for asking user if they want to play"""
+
+    ask_user = input("Do you want to play a game of Blackjack? Type 'y' or 'n': ")
+    return ask_user
+
+
+
+def start():
+    """ Function to play Blackjack"""
+
+    user_deck = []
+    dealer_deck =[]
+    ask_user = ''
+
+    user_deck = random.sample(cards,2)
+    dealer_deck = random.sample(cards,2)
+    play = True
+
+    if play == True:
+        ask_user = replay()
+
+    if ask_user == 'n':
+        play = False
+
+    while play is True:
+
+        user_score = user_score_calc(user_deck)
+        dealer_score = dealer_score_calc(dealer_deck)
+
+
+        print(f"Your cards: {user_deck}, current score: {user_score}")
+        print(f"Computer's first card: {dealer_deck[0]}")
+
+
+        if user_score == 21 and len(user_deck) == 2 and dealer_score != 21:
+            print(f"Your final hand: {user_deck}, final score: {user_score}")
+            print(f"Computer's final hand: {dealer_deck}, final score: {dealer_score}")
+            print("Win with a Blackjack 😎")
+            play = False
+            break
+
+
+        if dealer_score == 21 and len(dealer_deck) == 2:
+            print(f"Your final hand: {user_deck}, final score: {user_score}")
+            print(f"Computer's final hand: {dealer_deck}, final score: {dealer_score}")
+            print("Lose, opponent has Blackjack 😱")
+            play = False
+            break
+
+
+        if user_score != 21 and dealer_score != 21 and user_score == dealer_score:
+            print(f"Your final hand: {user_deck}, final score: {user_score}")
+            print(f"Computer's final hand: {dealer_deck}, final score: {dealer_score}")
+            print("Draw 🙃")
+            play = False
+            break
+
+        if user_score > dealer_score and dealer_score> 17: #NEW CODE
+            print(f"Your final hand: {user_deck}, final score: {user_score}")
+            print(f"Computer's final hand: {dealer_deck}, final score: {dealer_score}")
+            print("You win 😃")
+
+        if play == True and sum(user_deck) != 21 or sum(dealer_deck) != 21:
+            draw_again = input("Type 'y' to get another card, type 'n' to pass: ")
+
+        if draw_again == 'y' and user_score < 21:
+            user_deck = draw_user(user_deck)
+            user_score = user_score_calc(user_deck)
+
+
+        if user_score > 21:
+            print(f"Your final hand: {user_deck}, final score: {user_score}")
+            print(f"Computer's final hand: {dealer_deck}, final score: {dealer_score}")
+            print("You went over. You lose 😭")
+            play = False
+            break
+
+        if user_score == 21:
+            print(f"Your final hand: {user_deck}, final score: {user_score}")
+            print(f"Computer's final hand: {dealer_deck}, final score: {dealer_score}")
+            print("Win with a Blackjack 😎")
+            play = False
+            break
+
+
+        if draw_again == 'n' and dealer_score < 17:
+            dealer_deck = draw_dealer(dealer_deck)
+            dealer_score = dealer_score_calc(dealer_deck)
+
+        if user_score != 21 and dealer_score != 21 and dealer_score == user_score:
+            print(f"Your final hand: {user_deck}, final score: {user_score}")
+            print(f"Computer's final hand: {dealer_deck}, final score: {dealer_score}")
+            print("Draw 🙃")
+            play = False
+            break
+
+
+        if draw_again == 'n' and user_score < 21 and dealer_score > 21:
+            print(f"Your final hand: {user_deck}, final score: {user_score}")
+            print(f"Computer's final hand: {dealer_deck}, final score: {dealer_score}")
+            print("Opponent went over. You win 😁")
+            play = False
+            break
+
+
+        if draw_again == 'n' and dealer_score < 21:
+            print(f"Your final hand: {user_deck}, final score: {user_score}")
+            print(f"Computer's final hand: {dealer_deck}, final score: {dealer_score}")
+            print("You lose 😤")
+            play = False
+            break
+
+        if draw_again == 'n' and dealer_score == 21:
+            print(f"Your final hand: {user_deck}, final score: {user_score}")
+            print(f"Computer's final hand: {dealer_deck}, final score: {dealer_score}")
+            print("Lose, opponent has Blackjack 😱")
+            play = False
+            break
+
+    if ask_user == 'y':
+        start()
+
+start()
+
