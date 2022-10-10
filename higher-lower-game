@@ -1,0 +1,106 @@
+import random
+
+from os import system, name
+from game_data_day14 import data
+from game_art_day14 import logo, vs
+
+print(logo)
+
+def clear():
+    """ To clear terminal """
+    if name == 'nt':
+        _ = system('cls')
+    else:
+        _ = system('clear')
+
+def ig_profile():
+    """ Profile generator"""
+    random_num = random.randint(0, len(data)-1)
+    profile = data[random_num]
+    name = profile['name']
+    description = profile['description']
+    country = profile['country']
+    print(f"{name}, a {description} from {country}")
+    return profile
+
+
+def main(): # My Solution
+    """ Function to play """
+    profile_A = random.choice(data)
+    profile_B = random.choice(data)
+    while profile_A == profile_B:
+        profile_B == random.choice(data)
+
+    profile_name_A = profile_A['name']
+    profile_description_A = profile_A['description']
+    profile_country_A = profile_A['country']
+
+    profile_name_B = profile_B['name']
+    profile_description_B = profile_B['description']
+    profile_country_B = profile_B['country']
+
+    print(f"{profile_name_A}, a {profile_description_A} from {profile_country_A}")
+    print(vs)
+    print(f"{profile_name_B}, a {profile_description_B} from {profile_country_B}")
+
+    play = True
+    score = 0
+    A = profile_A
+    B = profile_B
+    A_or_B = ['A','B']
+    Y_or_N = ['Y','N']
+
+    while play is True:
+        user_ans = input("Who has more followers? Type 'A' or 'B': ")
+        while user_ans not in A_or_B:
+            print("That was not a valid input. Please try again.")
+            user_ans = input("Who has more followers? Type 'A' or 'B': ")
+        clear()
+        print(logo)
+        if user_ans == 'A':
+            if A['follower_count'] > B['follower_count']:
+                score += 1
+                print(f"You're right! Current score: {score}.")
+                name = B['name']
+                description = B['description']
+                country = B['country']
+                print(f"{name}, a {description} from {country}")
+                print(vs)
+                A = B
+                profile_B = ig_profile()
+                B = profile_B
+            elif B['follower_count'] > A['follower_count']:
+                print(f"Sorry, that's wrong. Final score: {score}")
+                play = False
+            else:
+                print("It's a tie!")
+        elif user_ans == 'B':
+            if B['follower_count'] > A['follower_count']:
+                score += 1
+                print(f"You're right! Current score: {score}.")
+                name = B['name']
+                description = B['description']
+                country = B['country']
+                print(f"{name}, a {description} from {country}")
+                print(vs)
+                A = B
+                profile_B = ig_profile()
+                B = profile_B
+            elif A['follower_count'] > B['follower_count']:
+                print(f"Sorry, that's wrong. Final score: {score}")
+                play = False
+            else:
+                print("It's a tie!")
+
+    play_again = input("Would you like to play again? Please enter 'Y' or 'N': ")
+    while play_again not in Y_or_N:
+        print("That was not a valid input. Please try again.")
+        play_again = input("Would you like to play again? Please enter 'Y' or 'N': ")
+    if play_again == 'Y':
+        clear()
+        print(logo)
+        play = True
+        main()
+
+
+main()
