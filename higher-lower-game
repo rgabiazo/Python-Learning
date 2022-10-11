@@ -67,7 +67,14 @@ def main(): # My Solution
                 print(f"{name}, a {description} from {country}")
                 print(vs)
                 A = B
-                profile_B = ig_profile()
+                profile_B = random.choice(data)
+                if profile_B == A:
+                    profile_B = ig_profile()
+                else:
+                    profile_name_B = profile_B['name']
+                    profile_description_B = profile_B['description']
+                    profile_country_B = profile_B['country']
+                    print(f"{profile_name_B}, a {profile_description_B} from {profile_country_B}")
                 B = profile_B
             elif B['follower_count'] > A['follower_count']:
                 print(f"Sorry, that's wrong. Final score: {score}")
@@ -84,7 +91,14 @@ def main(): # My Solution
                 print(f"{name}, a {description} from {country}")
                 print(vs)
                 A = B
-                profile_B = ig_profile()
+                profile_B = random.choice(data) 
+                if profile_B == A:  
+                    profile_B = ig_profile() 
+                else:
+                    profile_name_B = profile_B['name']
+                    profile_description_B = profile_B['description']
+                    profile_country_B = profile_B['country']
+                    print(f"{profile_name_B}, a {profile_description_B} from {profile_country_B}") # NEW CODE
                 B = profile_B
             elif A['follower_count'] > B['follower_count']:
                 print(f"Sorry, that's wrong. Final score: {score}")
