@@ -1,0 +1,53 @@
+import turtle as t
+import random
+colour_list = [(202, 164, 110), (236, 239, 243), (149, 75, 50), (222, 201, 136), (53, 93, 123), (170, 154, 41), (138, 31, 20), (134, 163, 184), (197, 92, 73), (47, 121, 86), (73, 43, 35), (145, 178, 149), (14, 98, 70), (232, 176, 165), (160, 142, 158), (54, 45, 50), (101, 75, 77), (183, 205, 171), (36, 60, 74), (19, 86, 89), (82, 148, 129), (147, 17, 19), (27, 68, 102), (12, 70, 64), (107, 127, 153), (176, 192, 208), (168, 99, 102)]
+# My Solution
+
+tim = t.Turtle()
+tim.speed('fastest')
+tim.up()
+tim.hideturtle()
+t.colormode(255)
+screen = t.Screen()
+
+
+counter = 0
+y = -200
+x = -250
+while counter != 10:
+    tim.goto(x, y)
+    for i in range(10):
+        tim.color(random.choice(colour_list))
+        tim.dot(20, random.choice(colour_list))
+        tim.forward(50)
+    counter += 1
+    y += 50
+
+
+
+screen.exitonclick()
+
+# import colorgram
+#
+# colors = colorgram.extract('image.jpg', 30)
+# rgb_colors = []
+# colour_list = []
+
+# for i in range (30): # My Solution
+#
+#     first_color = colors[i]
+#     rgb = first_color.rgb
+#
+#     red = rgb[0]
+#     red = rgb.r
+#
+#     green = rgb[1]
+#     green = rgb.g
+#
+#     blue = rgb[2]
+#     blue = rgb.b
+#
+#     tuple = (red,green,blue)
+#     colour_list.append(tuple)
+#
+# print(colour_list)
