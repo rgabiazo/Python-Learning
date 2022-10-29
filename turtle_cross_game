@@ -1,0 +1,148 @@
+# car_manager.py
+
+from turtle import Turtle
+import random
+
+COLORS = ["red", "orange", "yellow", "green", "blue", "purple"]
+STARTING_MOVE_DISTANCE = 5
+MOVE_INCREMENT = 10
+
+
+class CarManager:
+
+    def __init__(self):
+        self.car_list = []
+
+
+    def create_car(self):
+        y = random.randint(-250, 250)
+        car = Turtle(shape='square')
+        car.color(random.choice(COLORS))
+        car.shapesize(stretch_wid=1, stretch_len=2)
+        car.penup()
+        car.goto(310,y)
+        self.car_list.append(car)
+
+    def drive(self):
+        for i in self.car_list:
+            i.backward(MOVE_INCREMENT)
+
+    def increase_speed(self):
+        global MOVE_INCREMENT
+        MOVE_INCREMENT += 1
+
+    def collision(self,player,scoreboard):
+        global MOVE_INCREMENT
+
+        for j in self.car_list:
+            if player.distance(j) < 30:
+                MOVE_INCREMENT = 0
+                player.game_over()
+                scoreboard.game_over()
+
+
+# player.py
+
+from turtle import Turtle
+
+STARTING_POSITION = (0, -280)
+MOVE_DISTANCE = 10
+FINISH_LINE_Y = 280
+
+
+class Player(Turtle):
+    def __init__(self):
+        super().__init__()
+        self.shape('turtle')
+        self.penup()
+        self.setheading(90)
+        self.goto(STARTING_POSITION)
+
+    def up(self):
+        self.forward(MOVE_DISTANCE)
+
+    def reset(self):
+        self.goto(STARTING_POSITION)
+
+    def game_over(self):
+        global MOVE_DISTANCE
+        MOVE_DISTANCE = 0
+        
+#scoreboard.py
+
+from turtle import Turtle
+
+STARTING_POSITION = (0, -280)
+MOVE_DISTANCE = 10
+FINISH_LINE_Y = 280
+
+
+class Player(Turtle):
+    def __init__(self):
+        super().__init__()
+        self.shape('turtle')
+        self.penup()
+        self.setheading(90)
+        self.goto(STARTING_POSITION)
+
+    def up(self):
+        self.forward(MOVE_DISTANCE)
+
+    def reset(self):
+        self.goto(STARTING_POSITION)
+
+    def game_over(self):
+        global MOVE_DISTANCE
+        MOVE_DISTANCE = 0
+
+# main.py
+
+import time
+from turtle import Screen
+from player import Player
+from car_manager import CarManager
+from scoreboard import Scoreboard
+
+
+screen = Screen()
+screen.setup(width=600, height=600)
+screen.tracer(0)
+
+player = Player()
+car_manager = CarManager()
+scoreboard = Scoreboard()
+
+
+screen.listen()
+screen.onkey(player.up,'Up')
+
+
+game_is_on = True
+counter = 0
+
+while game_is_on:
+    time.sleep(0.1)
+    screen.update()
+
+
+    if counter % 6 == 0:
+        car_manager.create_car()
+
+
+    car_manager.drive()
+    car_manager.collision(player,scoreboard)
+
+
+    if player.ycor() > 270:
+        scoreboard.next_level()
+        player.reset()
+        car_manager.increase_speed()
+
+    counter += 1
+
+
+
+
+
+
+screen.exitonclick()
